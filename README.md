@@ -52,3 +52,13 @@ The following events are supported:
 * Tesla stop charging
 
 The event text should be in the summary of the event. Repeated events are not yet supported.
+Make sure that the duration of the event is longer then the interval of your cronjob.
+
+# Cronjob
+
+Finally have the script run from cron. The more often the cronjob executes the more accurate
+the events execution time will match the event start time. I suggest 5 minutes would be nice.
+```
+*/5 * * * * your-user cd ~/teslacal && python teslacal.py > /dev/null
+```
+
