@@ -31,7 +31,7 @@ c = teslajson.Connection(config.get('tesla', 'username'), config.get('tesla', 'p
 # Filter the vehicles list based on VIN if specified
 va = c.vehicles
 vin = config.get('tesla', 'vin')
-if vin is None:
+if vin is not None:
 	va = [ v for v in va if v['vin'] == vin ]
 
 # Make sure we did find a vehicle and then select the first
@@ -103,7 +103,7 @@ for event in events:
 	elif 'tesla stop charging' in text:
 		action = 'charge_stop'
 	else:
-		continue;
+		continue
 
 	# Debug the event
 	print(start, idx, action, text)
