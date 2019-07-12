@@ -11,6 +11,7 @@ from googlesheet import GoogleSheet
 
 import teslajson
 import string
+import time
 
 # Load the configuration
 config = RawConfigParser()
@@ -27,7 +28,7 @@ rows = iter(enumerate(gs.get_range(spreadsheet_id, sheet_name + '!A1:L20'), 1))
 
 # Find the row containing the header
 for idx, row in rows:
-    if 'Begin tijd' in row:
+    if 'Begintijd' in row:
         break
 
 # Worst case number of columns per row
@@ -43,8 +44,12 @@ for idx, row in rows:
 
 # Data to write to the new row
 data = {
+    'Begintijd': time.strftime("%Y-%m-%d %H:%M:%S"),
+    'Eindtijd': time.strftime("%Y-%m-%d %H:%M:%S"),
     'Beginstand': 123,
     'Eindstand': 456,
+    'Begin adres': 'TODO',
+    'Eind adres': 'TODO',
 }
 
 gs.set_fields(spreadsheet_id, {
