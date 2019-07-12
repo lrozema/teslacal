@@ -19,7 +19,7 @@ class GoogleSheet():
             credentials = None
 
         if not credentials or credentials.invalid:
-            flow = client.flow_from_clientsecrets('client_secret.json', 'https://www.googleapis.com/auth/spreadsheets.readonly')
+            flow = client.flow_from_clientsecrets('client_secret.json', 'https://www.googleapis.com/auth/spreadsheets')
             flow.user_agent = 'Tesla Gadget'
             credentials = tools.run_flow(flow, store, flags)
 
@@ -30,3 +30,6 @@ class GoogleSheet():
 
     def get_range(self, spreadsheetId, rangeName):
         return self.service.spreadsheets().values().get(spreadsheetId=spreadsheetId, range=rangeName).execute().get('values', [])
+
+    def set_fields(self, spreadsheetId, body):
+        return self.service.spreadsheets().values().batchUpdate(spreadsheetId=spreadsheetId, body=body).execute()
