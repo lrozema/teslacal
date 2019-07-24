@@ -50,7 +50,7 @@ if 0:
     print json.dumps({'vehicle_state': vehicle_state, 'drive_state': drive_state})
 
 odometer = float(vehicle_state['odometer']) * 1.60934
-in_motion = vehicle_state['is_user_present'] == '?'
+in_motion = drive_state['shift_state'] != 'P'
 
 # Allow to overwrite driving data so that we can test the script
 if len(sys.argv) > 2:
@@ -89,7 +89,7 @@ if odometer != data.get('Beginstand', None):
     sheet_name = 'Rittenregistratie'
 
     gs = GoogleSheet()
-    rows = iter(enumerate(gs.get_range(spreadsheet_id, sheet_name + '!A1:L20'), 1))
+    rows = iter(enumerate(gs.get_range(spreadsheet_id, sheet_name + '!A1:L10000'), 1))
 
     # Find the row containing the header
     for idx, row in rows:
